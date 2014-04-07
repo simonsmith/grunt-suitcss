@@ -4,7 +4,7 @@
 
 This task is basically a wrapper around [Rework Suit Conformance](https://github.com/suitcss/rework-suit-conformance) and [Suit CSS preprocessor](https://github.com/suitcss/preprocessor).
 
-Use it to validate conformance of SuitCSS components, usage of W3C variables and passing CSS through [Autoprefixer](https://github.com/ai/autoprefixer)
+Use it to validate conformance of SuitCSS components, allow usage of W3C variables and pass CSS through [Autoprefixer](https://github.com/ai/autoprefixer)
 
 ## Getting Started
 This plugin requires Grunt `~0.4.4`
