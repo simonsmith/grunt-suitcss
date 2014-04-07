@@ -92,4 +92,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-See [GitHub releases](https://github.com/gruntjs/grunt-suitcss/releases)
+See [GitHub releases](https://github.com/simonsmith/grunt-suitcss/releases)
