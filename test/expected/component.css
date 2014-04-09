@@ -1,0 +1,173 @@
+/**
+ * Display-type utilities
+ */
+
+.u-inline {
+  display: inline !important;
+}
+
+/**
+ * 1. Fix for Firefox bug: an image styled `max-width:100%` within an
+ * inline-block will display at its default size, and not limit its width to
+ * 100% of an ancestral container.
+ */
+
+.u-inlineBlock {
+  display: inline-block !important;
+  max-width: 100%;
+  /* 1 */
+}
+
+.u-block {
+  display: block !important;
+}
+
+.u-table {
+  display: table !important;
+}
+
+.u-tableCell {
+  display: table-cell !important;
+}
+
+/**
+ * Indicate that interaction will result in an (in)action.
+ */
+
+.u-isActionable {
+  cursor: pointer !important;
+}
+
+.u-isDisabled {
+  cursor: default !important;
+}
+
+.u-isDraggable {
+  cursor: move !important;
+}
+
+/**
+ * Completely remove from the flow and screen readers.
+ */
+
+.u-isHidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/**
+ * Display a hidden-by-default element.
+ */
+
+.u-isShown {
+  display: block !important;
+  visibility: visible !important;
+}
+
+table.u-isShown {
+  display: table !important;
+}
+
+tr.u-isShown,
+tr.u-isShown {
+  display: table-row !important;
+}
+
+td.u-isShown,
+th.u-isShown {
+  display: table-cell !important;
+}
+
+/**
+ * Completely remove from the flow but leave available to screen readers.
+ */
+
+.u-isHiddenVisually {
+  position: absolute !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+}
+
+/**
+ * Control visibility without affecting flow.
+ */
+
+.u-isInvisible {
+  visibility: hidden !important;
+}
+
+.u-isVisible {
+  visibility: visible !important;
+}
+
+/** @define Post */
+
+
+
+/* ==========================================================================
+   Post
+   ========================================================================== */
+
+.Post {
+  background: -webkit-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+  background: linear-gradient(to bottom, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+  color: green;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.Post-header {
+  font-size: 18px;
+}
+
+@media (min-width: 32em) {
+  .Post {
+    padding: 35px;
+  }
+
+  .Post-header {
+    float: left;
+  }
+}
+
+/* ==========================================================================
+   Lists utilities
+   ========================================================================== */
+
+.u-listUnstyled {
+  padding: 0;
+  list-style-type: none;
+}
+
+/** @define Tweet */
+
+
+
+/* ==========================================================================
+   Tweet
+   ========================================================================== */
+
+.Tweet {
+  background: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.Tweet-img {
+  height: 80px;
+  width: 80px;
+}
+
+/**
+ * Some global settings for the site
+ */
+
+body {
+  color: #444;
+  line-height: 1.4;
+}
+

@@ -1,0 +1,5 @@
+{
+  "name": "component-test",
+  "paths": ["css"],
+  "local": ["base"]
+}

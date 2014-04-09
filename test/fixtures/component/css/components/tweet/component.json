@@ -1,0 +1,10 @@
+{
+  "name": "tweet",
+  "dependencies": {
+    "suitcss/utils-display": "*"
+  },
+  "locals": [
+    "utils-lists"
+  ],
+  "styles": ["tweet.css"]
+}

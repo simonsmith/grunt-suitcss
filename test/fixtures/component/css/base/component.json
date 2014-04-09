@@ -1,0 +1,6 @@
+{
+  "name": "base",
+  "paths": ["../components", "../utilities"],
+  "styles": ["global.css"],
+  "local": ["post", "tweet"]
+}
