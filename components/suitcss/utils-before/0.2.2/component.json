@@ -1,0 +1,15 @@
+{
+  "name": "utils-before",
+  "version": "0.2.2",
+  "styles": [
+    "before.css"
+  ],
+  "development": {
+    "dependencies": {
+      "suitcss/components-test": "*"
+    }
+  },
+  "author": "Nicolas Gallagher",
+  "license": "MIT",
+  "repository": "suitcss/utils-before"
+}

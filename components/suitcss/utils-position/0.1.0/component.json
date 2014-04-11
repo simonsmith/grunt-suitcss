@@ -1,0 +1,14 @@
+{
+  "name": "utils-position",
+  "version": "0.1.0",
+  "styles": [
+    "position.css"
+  ],
+  "development": {
+    "dependencies": {
+      "suitcss/components-test": "*"
+    }
+  },
+  "license": "MIT",
+  "repository": "suitcss/utils-position"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "components-flex-embed",
+  "version": "1.5.1",
+  "styles": [
+    "flex-embed.css"
+  ],
+  "development": {
+    "dependencies": {
+      "suitcss/components-test": "*"
+    }
+  },
+  "author": "Nicolas Gallagher",
+  "license": "MIT",
+  "repository": "suitcss/components-flex-embed"
+}

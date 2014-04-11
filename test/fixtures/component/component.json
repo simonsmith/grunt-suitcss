@@ -1,5 +1,6 @@
 {
   "name": "component-test",
-  "paths": ["css"],
-  "local": ["base"]
+  "dependencies": {
+    "suitcss/suit": "0.4.0"
+  }
 }

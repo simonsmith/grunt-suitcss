@@ -1,0 +1,14 @@
+{
+  "name": "utils-align",
+  "version": "0.1.1",
+  "styles": [
+    "align.css"
+  ],
+  "development": {
+    "dependencies": {
+      "suitcss/components-test": "*"
+    }
+  },
+  "license": "MIT",
+  "repository": "suitcss/utils-align"
+}

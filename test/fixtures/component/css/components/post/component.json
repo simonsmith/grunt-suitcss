@@ -1,8 +1,0 @@
-{
-  "name": "post",
-  "dependencies": {
-    "suitcss/utils-display": "*",
-    "suitcss/utils-state": "*"
-  },
-  "styles": ["post.css"]
-}

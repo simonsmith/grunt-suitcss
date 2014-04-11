@@ -1,0 +1,11 @@
+{
+  "name": "utils-offset",
+  "version": "0.4.2",
+  "dependencies": {
+    "suitcss/utils-before": "0.2.2",
+    "suitcss/utils-after": "0.2.2"
+  },
+  "author": "Nicolas Gallagher",
+  "license": "MIT",
+  "repository": "suitcss/utils-offset"
+}

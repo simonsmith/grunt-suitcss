@@ -1,0 +1,15 @@
+{
+  "name": "utils-after",
+  "version": "0.2.2",
+  "styles": [
+    "after.css"
+  ],
+  "development": {
+    "dependencies": {
+      "suitcss/components-test": "*"
+    }
+  },
+  "author": "Nicolas Gallagher",
+  "license": "MIT",
+  "repository": "suitcss/utils-after"
+}

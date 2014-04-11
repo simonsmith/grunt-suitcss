@@ -1,0 +1,15 @@
+{
+  "name": "utils-text",
+  "version": "0.3.0",
+  "styles": [
+    "text.css"
+  ],
+  "development": {
+    "dependencies": {
+      "suitcss/test": "*"
+    }
+  },
+  "author": "Nicolas Gallagher",
+  "license": "MIT",
+  "repository": "suitcss/utils-text"
+}
