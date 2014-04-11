@@ -113,6 +113,7 @@ th.u-isShown {
    ========================================================================== */
 
 .Post {
+  background: -webkit-gradient(linear, left top, left bottom, from(#1e5799), color-stop(50%, #2989d8), color-stop(51%, #207cca), to(#7db9e8));
   background: -webkit-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
   background: linear-gradient(to bottom, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
   color: green;
@@ -170,4 +171,3 @@ body {
   color: #444;
   line-height: 1.4;
 }
-

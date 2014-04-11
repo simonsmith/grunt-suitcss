@@ -1,5 +1,6 @@
 /*
  * grunt-suitcss
+ * Build, preprocess and validate SuitCSS components
  * https://github.com/simonsmith/grunt-suitcss
  *
  * Copyright (c) 2014 Simon Smith
@@ -101,15 +102,6 @@ function buildComponentsAndPreprocessSuit(filepath) {
 
     var build = Build(tree);
 
-    build.stylePlugins = function(build) {
-      if (options.conform) {
-        build.use('styles', conformPlugin());
-      }
-      if (options.preprocess) {
-        build.use('styles', preprocessPlugin());
-      }
-    };
-
     build.styles(function(err, string) {
       if (err) {
         deferred.reject(err);
@@ -118,6 +110,19 @@ function buildComponentsAndPreprocessSuit(filepath) {
       if (!string) {
         deferred.reject('The styles could not be built');
         return;
+      }
+
+      if (options.conform) {
+        try {
+          conform(string);
+        } catch (e) {
+          deferred.reject(e);
+          return deferred.promise;
+        }
+      }
+
+      if (options.preprocess) {
+        string = preprocess(string);
       }
 
       deferred.resolve(string);
@@ -160,40 +165,6 @@ function preprocessSuit(filepath) {
  */
 function isComponent(filepath) {
   return /component.json$/.test(filepath);
-}
-
-/**
- * Build plugin
- *
- * @returns {Function}
- */
-function conformPlugin() {
-  return function(file, done) {
-    file.read(function(err, string) {
-      if (err) {
-        throw err;
-      }
-      file.string = conform(string);
-      done();
-    });
-  };
-}
-
-/**
- *
- * Build plugin
- * @returns {Function}
- */
-function preprocessPlugin() {
-  return function(file, done) {
-    file.read(function(err, string) {
-      if (err) {
-        throw err;
-      }
-      file.string = preprocess(string);
-      done();
-    });
-  };
 }
 
 /**
