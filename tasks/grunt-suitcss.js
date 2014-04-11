@@ -15,6 +15,7 @@ var conformance = require('rework-suit-conformance');
 var suitcss     = require('suitcss-preprocessor');
 var resolve     = require('component-resolver');
 var Build       = require('component-build');
+var flatten     = require('component-flatten');
 var Q           = require('q');
 var grunt       = require('grunt');
 
@@ -100,7 +101,21 @@ function buildComponentsAndPreprocessSuit(filepath) {
       return deferred.promise;
     }
 
-    var build = Build(tree);
+    var build = Build(flatten(tree));
+
+    build.stylePlugins = function(build) {
+      if (options.conform) {
+        build.use('styles', function(file, done) {
+          file.read(function(err, string) {
+            if (err) {
+              throw err;
+            }
+            file.string = conform(string);
+            done();
+          });
+        });
+      }
+    };
 
     build.styles(function(err, string) {
       if (err) {
@@ -110,15 +125,6 @@ function buildComponentsAndPreprocessSuit(filepath) {
       if (!string) {
         deferred.reject('The styles could not be built');
         return;
-      }
-
-      if (options.conform) {
-        try {
-          conform(string);
-        } catch (e) {
-          deferred.reject(e);
-          return deferred.promise;
-        }
       }
 
       if (options.preprocess) {
