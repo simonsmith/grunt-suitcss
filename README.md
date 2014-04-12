@@ -6,7 +6,7 @@ This task will build SuitCSS components, check them for conformance and then pre
 
 **Build** - If a `component.json` file is used then dependencies are resolved and built using [component-resolver](https://github.com/component/resolver.js) and [component-build](https://github.com/component/build.js)
 
-**Conform** - Indivudual components are checked for conformance with [Rework Suit Conformance](https://github.com/suitcss/rework-suit-conformance)
+**Conform** - Individual components are checked for conformance with [Rework Suit Conformance](https://github.com/suitcss/rework-suit-conformance)
 
 **Preprocess** - The resulting file is pre-processed using [Suit CSS preprocessor](https://github.com/suitcss/preprocessor). This will run the file through [Autoprefixer](https://github.com/ai/autoprefixer) and allow usage of W3C-style variables and calc().
 
