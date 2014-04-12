@@ -1,6 +1,6 @@
 {
   "name": "component-test",
   "dependencies": {
-    "suitcss/suit": "0.4.0"
+    "suitcss/components-button-group": "2.1.0"
   }
 }
