@@ -46,9 +46,10 @@ module.exports = function() {
 
       // Wait for promises to resolve and then write contents
       // to file.
-      Q.all(files).then(function(file) {
-        writeFile(f.dest, file);
-      }, failTask)
+      Q.all(files).then(function(files) {
+        preprocessAndWriteFile(f.dest, files);
+      })
+      .catch(failTask)
       .finally(taskDone);
     });
   });
@@ -69,36 +70,36 @@ function checkFileExists(filepath) {
 }
 
 /**
- * If file is .json then assume we need to build and process a component
- * Otherwise just preprocess the files as single Suit css files
+ * If file is .json then assume we need to build a component
+ * Otherwise just check the files for conformance
  *
  * @param filepath
  * @returns {promise|Q.promise}
  */
 function getFileContents(filepath) {
   if (isComponent(filepath)) {
-    return buildComponentsAndPreprocessSuit(filepath);
+    return buildComponentAndCheckConformance(filepath);
   } else {
-    return preprocessSuit(filepath);
+    return checkConformance(filepath);
   }
 }
 
 /**
  * Builds a component package based on a component.json file.
  * Will install packages if they don't exist locally.
- * Validate and preprocess the Suit components once installed
+ * Validate each component before returning built file
  *
  * @param filepath
  * @returns {promise|Q.promise}
  */
-function buildComponentsAndPreprocessSuit(filepath) {
+function buildComponentAndCheckConformance(filepath) {
   var componentDir = path.join(process.cwd(), path.dirname(filepath));
   var deferred = Q.defer();
 
   resolve(componentDir, options.resolveOpts, function(err, tree) {
     if (err) {
       deferred.reject(err);
-      return deferred.promise;
+      return;
     }
 
     var build = Build(flatten(tree));
@@ -108,7 +109,8 @@ function buildComponentsAndPreprocessSuit(filepath) {
         build.use('styles', function(file, done) {
           file.read(function(err, string) {
             if (err) {
-              throw err;
+              deferred.reject(err);
+              return;
             }
             file.string = conform(string);
             done();
@@ -127,10 +129,6 @@ function buildComponentsAndPreprocessSuit(filepath) {
         return;
       }
 
-      if (options.preprocess) {
-        string = preprocess(string);
-      }
-
       deferred.resolve(string);
     });
   });
@@ -139,12 +137,12 @@ function buildComponentsAndPreprocessSuit(filepath) {
 }
 
 /**
- * Preprocess and validate SuitCSS files
+ * Check Suit files for conformance. Run on individual components
  *
  * @param filepath
  * @returns {promise|Q.promise}
  */
-function preprocessSuit(filepath) {
+function checkConformance(filepath) {
   var file = grunt.file.read(filepath);
   var deferred = Q.defer();
 
@@ -157,17 +155,13 @@ function preprocessSuit(filepath) {
     }
   }
 
-  if (options.preprocess) {
-    file = preprocess(file);
-  }
-
   deferred.resolve(file);
   return deferred.promise;
 }
 
 /**
  * @param filepath
- * @returns {boolean|*}
+ * @returns {boolean}
  */
 function isComponent(filepath) {
   return /component.json$/.test(filepath);
@@ -175,6 +169,7 @@ function isComponent(filepath) {
 
 /**
  * @param string
+ * @returns {String}
  */
 function conform(string) {
   return rework(string).use(conformance);
@@ -190,10 +185,14 @@ function preprocess(string) {
 
 /**
  * @param dest
- * @param file
+ * @param files
  */
-function writeFile(dest, file) {
-  grunt.file.write(dest, file.join(grunt.util.normalizelf(options.separator)));
+function preprocessAndWriteFile(dest, files) {
+  if (options.preprocess) {
+    files = files.map(preprocess);
+  }
+
+  grunt.file.write(dest, files.join(grunt.util.normalizelf(options.separator)));
   grunt.log.writeln('File "' + dest + '" created.');
 }
 
