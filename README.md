@@ -1,4 +1,4 @@
-0# grunt-suitcss [![Build Status](https://travis-ci.org/simonsmith/grunt-suitcss.svg?branch=master)](https://travis-ci.org/simonsmith/grunt-suitcss)
+# grunt-suitcss [![Build Status](https://travis-ci.org/simonsmith/grunt-suitcss.svg?branch=master)](https://travis-ci.org/simonsmith/grunt-suitcss)
 
 > Preprocess and validate [SuitCSS](http://github.com/suitcss/suit) components
 
