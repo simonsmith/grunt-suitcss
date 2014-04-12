@@ -1,18 +1,14 @@
-# grunt-suitcss [![Build Status](https://travis-ci.org/simonsmith/grunt-suitcss.svg?branch=master)](https://travis-ci.org/simonsmith/grunt-suitcss)
+0# grunt-suitcss [![Build Status](https://travis-ci.org/simonsmith/grunt-suitcss.svg?branch=master)](https://travis-ci.org/simonsmith/grunt-suitcss)
 
-> Build, preprocess and validate [SuitCSS](http://github.com/suitcss/suit) components
+> Preprocess and validate [SuitCSS](http://github.com/suitcss/suit) components
 
-This task will build SuitCSS components using [component(1)](https://github.com/component/component), preprocess them and check for conformance.
+This task will build SuitCSS components, check them for conformance and then preprocess the resulting file. It can accept `.css` files or a [component(1)](https://github.com/component/component) JSON file.
 
-**Build** - Dependencies are resolved and built using [component-resolver](https://github.com/component/resolver.js) and [component-build](https://github.com/component/build.js)
+**Build** - If a `component.json` file is used then dependencies are resolved and built using [component-resolver](https://github.com/component/resolver.js) and [component-build](https://github.com/component/build.js)
 
-**Preprocess** - Components are pre-processed using [Suit CSS preprocessor](https://github.com/suitcss/preprocessor). This will run the file through [Autoprefixer](https://github.com/ai/autoprefixer) and allow usage of W3C-style variables and calc().
+**Conform** - Indivudual components are checked for conformance with [Rework Suit Conformance](https://github.com/suitcss/rework-suit-conformance)
 
-**Conform** - Components are checked for conformance with [Rework Suit Conformance](https://github.com/suitcss/rework-suit-conformance)
-
-This plugin serves two audiences - those using SuitCSS components via Component and those wishing to just pre-process and validate normal CSS files that are written in SuitCSS style.
-
-See the Options for details
+**Preprocess** - The resulting file is pre-processed using [Suit CSS preprocessor](https://github.com/suitcss/preprocessor). This will run the file through [Autoprefixer](https://github.com/ai/autoprefixer) and allow usage of W3C-style variables and calc().
 
 
 ## Getting Started
@@ -30,7 +26,7 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-suitcss');
 ```
 
-## Suitcss task
+## SuitCSS task
 
 ### Overview
 In your project's Gruntfile, add a section named `suitcss` to the data object passed into `grunt.initConfig()`.
@@ -54,13 +50,13 @@ grunt.initConfig({
 Type: `Boolean`
 Default value: `true`
 
-Pass the CSS file through the [Rework Suit Conformance](https://github.com/suitcss/rework-suit-conformance) library. If conformance fails an error will be output to the CLI and the task will be stopped
+Pass each component through the [Rework Suit Conformance](https://github.com/suitcss/rework-suit-conformance) library. If conformance fails an error will be output to the CLI and the task will be stopped
 
 #### options.preprocess
 Type: `Boolean`
 Default value: `true`
 
-Pass the CSS file through the [Suit CSS preprocessor](https://github.com/suitcss/preprocessor)
+Pass the resulting CSS file through the [Suit CSS preprocessor](https://github.com/suitcss/preprocessor)
 
 #### options.resolveOpts
 Type: `Object`
@@ -74,8 +70,8 @@ Options that can be passed to the [component-resolver](https://github.com/compon
 
 #### Default Options
 
-##### Building SuitCSS components
-In this example, the default options are used to build a SuitCSS component. The source file **must** be a `component.json` file for the task to know it has to fetch dependencies and build them. The resulting file is then passed through the SuitCSS preprocessor and conformance checker.
+##### Building SuitCSS components with component(1)
+In this example, the default options are used to build a SuitCSS component. The source file **must** be a `component.json` file for the task to know it has to fetch dependencies and build them. Each component is passed through the conformance checker and the resulting file is then passed through the SuitCSS preprocessor.
 
 ```js
 grunt.initConfig({
@@ -89,7 +85,7 @@ grunt.initConfig({
 
 ##### Preprocessing normal CSS files
 
-It's nice to still write CSS as modular SuitCSS components even if component(1) is not used. In this case passing the task one or more CSS files will mean they are only pre-processed and checked for conformance.
+It's common to use SuitCSS components even if component(1) is not used, for example installing them from a different package manager like Bower. In this case passing the task one or more CSS files will mean they are checked for conformance individually and then preprocessed as a complete package. They are built in the order they are passed in.
 
 ```js
 grunt.initConfig({
@@ -102,7 +98,7 @@ grunt.initConfig({
 ```
 
 #### Custom Options
-In this example, custom options are used to disable `preprocess`. If your components are written in Sass/LESS it might be useful to disable preprocessing of variables.
+In this example, custom options are used to disable `preprocess`.
 
 **Note** If both `conform` and `preprocess` are set to false then `grunt-suitcss` will simply return the untouched CSS.
 
