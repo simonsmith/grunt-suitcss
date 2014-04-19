@@ -1,7 +1,7 @@
 {
   "name": "grunt-suitcss",
   "description": "Preprocess and validate SuitCSS components",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "homepage": "https://github.com/simonsmith/grunt-suitcss",
   "author": {
     "name": "Simon Smith",
@@ -49,6 +49,7 @@
     "component-resolver": "^1.1.1",
     "component-build": "^1.2.0",
     "q": "^1.0.1",
-    "component-flatten": "^1.0.0"
+    "component-flatten": "^1.0.0",
+    "lodash": "^2.4.1"
   }
 }

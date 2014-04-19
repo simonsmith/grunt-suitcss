@@ -40,6 +40,7 @@
   margin: 0; /* 1 */
   padding: 0; /* 1 */
   text-align: left; /* 3 */
+  color: var(some-other-thing);
 }
 
 /**

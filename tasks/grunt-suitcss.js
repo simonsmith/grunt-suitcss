@@ -18,6 +18,7 @@ var Build       = require('component-build');
 var flatten     = require('component-flatten');
 var Q           = require('q');
 var grunt       = require('grunt');
+var _           = require('lodash');
 
 var options;
 module.exports = function() {
@@ -35,22 +36,19 @@ module.exports = function() {
     // Ensure always verbose for CLI output
     options.resolveOpts.verbose = true;
 
-    // Fetching components can take a while so
-    // async is necessary.
     var taskDone = this.async();
 
-    this.files.forEach(function(f) {
-      var files = f.src
-          .filter(checkFileExists)
-          .map(getFileContents);
+    _.each(this.files, function(f) {
+      var files = _.chain(f.src)
+        .filter(checkFileExists)
+        .map(getFileContents)
+        .value();
 
-      // Wait for promises to resolve and then write contents
-      // to file.
-      Q.all(files).then(function(files) {
-        preprocessAndWriteFile(f.dest, files);
-      })
-      .catch(failTask)
-      .finally(taskDone);
+      Q.all(files)
+        .done(function(files) {
+          writeFile(f.dest, files);
+          taskDone();
+        }, failTask);
     });
   });
 
@@ -87,7 +85,7 @@ function getFileContents(filepath) {
 /**
  * Builds a component package based on a component.json file.
  * Will install packages if they don't exist locally.
- * Validate each component before returning built file
+ * Validate each component before returning built files
  *
  * @param filepath
  * @returns {promise|Q.promise}
@@ -97,7 +95,7 @@ function buildComponentAndCheckConformance(filepath) {
   var deferred = Q.defer();
 
   resolve(componentDir, options.resolveOpts, function(err, tree) {
-    if (err) {
+    if (!_.isNull(err)) {
       deferred.reject(err);
       return;
     }
@@ -105,31 +103,29 @@ function buildComponentAndCheckConformance(filepath) {
     var build = Build(flatten(tree));
 
     build.stylePlugins = function(build) {
-      if (options.conform) {
-        build.use('styles', function(file, done) {
-          file.read(function(err, string) {
-            if (err) {
-              deferred.reject(err);
-              return;
-            }
+      build.use('styles', function(file, done) {
+        file.read(function(err, string) {
+          if (!_.isNull(err)) {
+            deferred.reject(err);
+            return;
+          }
+
+          if (options.conform) {
             file.string = conform(string);
-            done();
-          });
+          }
+
+          done();
         });
-      }
+      });
     };
 
-    build.styles(function(err, string) {
-      if (err) {
+    build.styles(function(err, builtCSS) {
+      if (!_.isNull(err)) {
         deferred.reject(err);
         return;
       }
-      if (!string) {
-        deferred.reject('The styles could not be built');
-        return;
-      }
 
-      deferred.resolve(string);
+      deferred.resolve(builtCSS);
     });
   });
 
@@ -172,7 +168,9 @@ function isComponent(filepath) {
  * @returns {String}
  */
 function conform(string) {
-  return rework(string).use(conformance);
+  if (_.isString(string)) {
+    return rework(string).use(conformance);
+  }
 }
 
 /**
@@ -180,19 +178,23 @@ function conform(string) {
  * @returns {String}
  */
 function preprocess(string) {
-  return suitcss(string);
+  if (_.isString(string)) {
+    return suitcss(string);
+  }
 }
 
 /**
  * @param dest
  * @param files
  */
-function preprocessAndWriteFile(dest, files) {
+function writeFile(dest, files) {
+  var file = files.join(grunt.util.normalizelf(options.separator));
+
   if (options.preprocess) {
-    files = files.map(preprocess);
+    file = preprocess(file);
   }
 
-  grunt.file.write(dest, files.join(grunt.util.normalizelf(options.separator)));
+  grunt.file.write(dest, file);
   grunt.log.writeln('File "' + dest + '" created.');
 }
 

@@ -4,6 +4,7 @@
   "immed": true,
   "latedef": false,
   "newcap": false,
+  "indent": 2,
   "noarg": true,
   "sub": true,
   "undef": true,
