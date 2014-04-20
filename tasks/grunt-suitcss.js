@@ -111,7 +111,12 @@ function buildComponentAndCheckConformance(filepath) {
           }
 
           if (options.conform) {
-            file.string = conform(string);
+            try {
+              file.string = conform(string);
+            } catch (e) {
+              deferred.reject(e);
+              return;
+            }
           }
 
           done();
