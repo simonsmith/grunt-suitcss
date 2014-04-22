@@ -22,13 +22,17 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      tests: ['tmp']
+      tests: ['tmp', 'components']
     },
 
     suitcss: {
       file: {
         files: {
-          'tmp/preprocess/built.css': ['test/fixtures/preprocess/button.css', 'test/fixtures/preprocess/grid.css']
+          'tmp/preprocess/built.css': [
+            'test/fixtures/preprocess/button.css',
+            'test/fixtures/preprocess/grid.css',
+            'test/fixtures/preprocess/theme.css'
+          ]
         }
       },
       component: {

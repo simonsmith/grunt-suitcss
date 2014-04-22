@@ -1,6 +1,10 @@
 {
   "name": "component-test",
-  "dependencies": {
-    "suitcss/components-button-group": "2.1.0"
-  }
+  "paths": [
+    "test_components"
+  ],
+  "local": [
+    "grid",
+    "theme"
+  ]
 }

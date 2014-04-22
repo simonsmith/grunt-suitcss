@@ -1,7 +1,7 @@
 {
   "name": "grunt-suitcss",
   "description": "Preprocess and validate SuitCSS components",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "homepage": "https://github.com/simonsmith/grunt-suitcss",
   "author": {
     "name": "Simon Smith",
@@ -43,8 +43,8 @@
     "css"
   ],
   "dependencies": {
-    "suitcss-preprocessor": "^0.1.1",
-    "rework-suit-conformance": "^0.1.1",
+    "suitcss-preprocessor": "^0.2.0",
+    "rework-suit-conformance": "^0.2.0",
     "rework": "^0.20.2",
     "component-resolver": "^1.1.1",
     "component-build": "^1.2.0",
