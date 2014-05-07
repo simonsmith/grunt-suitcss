@@ -1,4 +1,4 @@
-# grunt-suitcss [![Build Status](https://travis-ci.org/simonsmith/grunt-suitcss.svg?branch=master)](https://travis-ci.org/simonsmith/grunt-suitcss)
+ # grunt-suitcss [![Build Status](https://travis-ci.org/simonsmith/grunt-suitcss.svg?branch=master)](https://travis-ci.org/simonsmith/grunt-suitcss)
 
 > Preprocess and validate [SUIT CSS](http://github.com/suitcss/suit) components
 
@@ -79,9 +79,11 @@ In this example, the default options are used to build a SUIT CSS component. The
 ```js
 grunt.initConfig({
   suitcss: {
-    files: {
-      'dest/built.css': 'path/to/component.json',
-    },
+    your_target: {
+      files: {
+        'dest/built.css': 'path/to/component.json',
+      }
+    }
   },
 });
 ```
@@ -93,10 +95,12 @@ It's common to use SUIT CSS components even if component(1) is not used, for exa
 ```js
 grunt.initConfig({
   suitcss: {
-    files: {
-      'dest/built.css': ['components/tweet.css', 'components/button.css'],
-    },
-  },
+    your_target: {
+      files: {
+        'dest/built.css': ['components/tweet.css', 'components/button.css'],
+      }
+    }
+  }
 });
 ```
 
@@ -108,13 +112,15 @@ In this example, custom options are used to disable `preprocess`.
 ```js
 grunt.initConfig({
   suitcss: {
-    options: {
-      preprocess: false,
-    },
-    files: {
-      'dest/built.css': ['components/tweet.css', 'components/button.css'],
-    },
-  },
+    your_target: {
+      options: {
+        preprocess: false,
+      },
+      files: {
+        'dest/built.css': ['components/tweet.css', 'components/button.css'],
+      }
+    }
+  }
 });
 ```
 
