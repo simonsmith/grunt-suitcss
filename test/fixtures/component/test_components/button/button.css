@@ -1,11 +1,11 @@
 /** @define Button */
 
 :root {
-  --color-Button: red;
+  --Button-color: red;
 }
 
 .Button {
-  color: var(--color-Button);
+  color: var(--Button-color);
   background: linear-gradient(to bottom, #5C1BD0 0%, #7836FA 100%);
 }
 

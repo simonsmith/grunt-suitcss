@@ -1,10 +1,10 @@
 /** @define Grid */
 
 :root {
-  --width-Grid: 100px;
+  --Grid-width: 100px;
 }
 
 .Grid {
-  width: var(--width-Grid);
+  width: var(--Grid-width);
   color: var(--global-color);
 }
