@@ -27,11 +27,17 @@ module.exports = function(grunt) {
 
     suitcss: {
       file: {
+        options: {
+          preprocessOpts: {
+            root: 'test/fixtures/preprocess'
+          }
+        },
         files: {
           'tmp/preprocess/built.css': [
             'test/fixtures/preprocess/button.css',
             'test/fixtures/preprocess/grid.css',
-            'test/fixtures/preprocess/theme.css'
+            'test/fixtures/preprocess/theme.css',
+            'test/fixtures/preprocess/importer.css'
           ]
         }
       },

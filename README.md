@@ -69,6 +69,12 @@ Options that can be passed to the [component-resolver](https://github.com/compon
 
 **Note:** `verbose` is always set to true to allow output to the CLI
 
+#### options.preprocessOpts
+Type: `Object`
+Default value: `{}`
+
+Options that can be passed to the [SUIT CSS preprocessor](https://github.com/suitcss/preprocessor)
+
 ### Usage Examples
 
 #### Default Options
