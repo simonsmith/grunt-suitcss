@@ -26,7 +26,6 @@ module.exports = function() {
     options = this.options({
       separator: grunt.util.linefeed,
       conform: true,
-      preprocess: true,
       resolveOpts: {
         install: true
       },
@@ -141,32 +140,13 @@ function isComponent(filepath) {
 }
 
 function conform(string) {
-  if (_.isString(string)) {
-    return rework(string).use(conformance);
-  }
+  return rework(string).use(conformance);
 }
 
-/**
- * @param string
- * @param preprocessOpts
- * @returns {String}
- */
-function preprocess(string, preprocessOpts) {
-  if (_.isString(string)) {
-    return suitcss(string, preprocessOpts);
-  }
-}
-
-/**
- * @param dest
- * @param files
- */
 function writeFile(dest, files) {
   var file = files.join(grunt.util.normalizelf(options.separator));
 
-  if (options.preprocess) {
-    file = preprocess(file, options.preprocessOpts);
-  }
+  file = suitcss(file, options.preprocessOpts);
 
   grunt.file.write(dest, file);
   grunt.log.writeln('File "' + dest + '" created.');
