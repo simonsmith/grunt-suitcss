@@ -1,9 +1,15 @@
-/** @define Grid */
+
+
+/** @define Button */
 
 
 
-.Grid {
-  width: 100px;
-  color: purple;
+.Button {
+  color: red;
+  background: -webkit-linear-gradient(top, #5C1BD0 0%, #7836FA 100%);
+  background: linear-gradient(to bottom, #5C1BD0 0%, #7836FA 100%);
 }
 
+.Button--default {
+  color: purple;
+}

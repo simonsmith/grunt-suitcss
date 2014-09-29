@@ -4,19 +4,13 @@ var grunt = require('grunt');
 var expect = require('chai').expect;
 
 describe('Preprocessing stylesheets', function() {
-  it('should preprocess a SuitCSS stylesheet', function() {
-    var actual = grunt.file.read('tmp/preprocess/built.css');
-    var expected = grunt.file.read('test/expected/preprocess.css');
-
-    expect(actual).to.equal(expected);
-  });
+  runTest('should resolve imports - relative and via npm', 'tmp/import/built.css', 'test/expected/import.css');
+  runTest('should preprocess a collection of stylesheets', 'tmp/preprocess/built.css', 'test/expected/preprocess.css');
+  runTest('should resolve dependencies and build with Component(1)', 'tmp/component/built.css', 'test/expected/component.css');
 });
 
-describe('Building components', function() {
-  it('should build a SuitCSS component', function() {
-    var actual = grunt.file.read('tmp/component/built.css');
-    var expected = grunt.file.read('test/expected/component.css');
-
-    expect(actual).to.equal(expected);
+function runTest(description, actualPath, expectedPath) {
+  it(description, function() {
+    expect(grunt.file.read(actualPath)).to.equal(grunt.file.read(expectedPath));
   });
-});
+}
