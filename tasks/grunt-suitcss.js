@@ -20,8 +20,9 @@ var Q           = require('q');
 var grunt       = require('grunt');
 
 var options;
-module.exports = function() {
+module.exports = task;
 
+function task() {
   grunt.registerMultiTask('suitcss', 'Preprocess and validate SUIT CSS components', function() {
     options = this.options({
       separator: grunt.util.linefeed,
@@ -47,8 +48,7 @@ module.exports = function() {
         }, failTask);
     });
   });
-
-};
+}
 
 function checkFileExists(filepath) {
   if (!grunt.file.exists(filepath)) {
