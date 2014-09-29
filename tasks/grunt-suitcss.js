@@ -107,16 +107,14 @@ function buildComponentAndCheckConformance(filepath) {
       build.use('styles', function(file, done) {
         file.read(function(err, string) {
           if (!_.isNull(err)) {
-            deferred.reject(err);
-            return;
+            return deferred.reject(err);
           }
 
           if (options.conform) {
             try {
               file.string = conform(string);
             } catch (e) {
-              deferred.reject(e);
-              return;
+              return deferred.reject(e);
             }
           }
 
@@ -181,6 +179,7 @@ function conform(string) {
 
 /**
  * @param string
+ * @param preprocessOpts
  * @returns {String}
  */
 function preprocess(string, preprocessOpts) {
