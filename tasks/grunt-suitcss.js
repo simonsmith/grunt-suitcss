@@ -1,6 +1,6 @@
 /*
  * grunt-suitcss
- * Build, preprocess and validate SuitCSS components
+ * Build, preprocess and validate SUIT CSS components
  * https://github.com/simonsmith/grunt-suitcss
  *
  * Copyright (c) 2014 Simon Smith
@@ -22,7 +22,7 @@ var grunt       = require('grunt');
 var options;
 module.exports = function() {
 
-  grunt.registerMultiTask('suitcss', 'Preprocess and validate SuitCSS components', function() {
+  grunt.registerMultiTask('suitcss', 'Preprocess and validate SUIT CSS components', function() {
     options = this.options({
       separator: grunt.util.linefeed,
       conform: true,
@@ -51,10 +51,6 @@ module.exports = function() {
 
 };
 
-/**
- * @param filepath
- * @returns {boolean}
- */
 function checkFileExists(filepath) {
   if (!grunt.file.exists(filepath)) {
     grunt.log.warn('Source file "' + filepath + '" not found.');
@@ -64,13 +60,6 @@ function checkFileExists(filepath) {
   }
 }
 
-/**
- * If file is .json then assume we need to build a component
- * Otherwise just check the files for conformance
- *
- * @param filepath
- * @returns {promise|Q.promise}
- */
 function getFileContents(filepath) {
   if (isComponent(filepath)) {
     return buildComponentAndCheckConformance(filepath);
@@ -128,10 +117,7 @@ function buildComponentAndCheckConformance(filepath) {
 }
 
 /**
- * Check Suit files for conformance. Run on individual components
- *
- * @param filepath
- * @returns {promise|Q.promise}
+ * Run on individual components
  */
 function checkConformance(filepath) {
   var file = grunt.file.read(filepath);
@@ -150,18 +136,10 @@ function checkConformance(filepath) {
   return deferred.promise;
 }
 
-/**
- * @param filepath
- * @returns {boolean}
- */
 function isComponent(filepath) {
   return /component.json$/.test(filepath);
 }
 
-/**
- * @param string
- * @returns {String}
- */
 function conform(string) {
   if (_.isString(string)) {
     return rework(string).use(conformance);
@@ -194,9 +172,6 @@ function writeFile(dest, files) {
   grunt.log.writeln('File "' + dest + '" created.');
 }
 
-/**
- * @param error
- */
 function failTask(error) {
   grunt.fail.fatal(error);
 }
