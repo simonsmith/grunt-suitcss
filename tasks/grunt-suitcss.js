@@ -18,7 +18,6 @@ var Build       = require('component-build');
 var flatten     = require('component-flatten');
 var Q           = require('q');
 var grunt       = require('grunt');
-var _           = require('lodash');
 
 var options;
 module.exports = function() {
@@ -39,11 +38,8 @@ module.exports = function() {
 
     var taskDone = this.async();
 
-    _.each(this.files, function(f) {
-      var files = _.chain(f.src)
-        .filter(checkFileExists)
-        .map(getFileContents)
-        .value();
+    this.files.forEach(function(f) {
+      var files = f.src.filter(checkFileExists).map(getFileContents);
 
       Q.all(files)
         .done(function(files) {
@@ -87,18 +83,14 @@ function getFileContents(filepath) {
  * Builds a component package based on a component.json file.
  * Will install packages if they don't exist locally.
  * Validate each component before returning built files
- *
- * @param filepath
- * @returns {promise|Q.promise}
  */
 function buildComponentAndCheckConformance(filepath) {
   var componentDir = path.join(process.cwd(), path.dirname(filepath));
   var deferred = Q.defer();
 
   resolve(componentDir, options.resolveOpts, function(err, tree) {
-    if (!_.isNull(err)) {
-      deferred.reject(err);
-      return;
+    if (err) {
+      return deferred.reject(err);
     }
 
     var build = Build(flatten(tree));
@@ -106,7 +98,7 @@ function buildComponentAndCheckConformance(filepath) {
     build.stylePlugins = function(build) {
       build.use('styles', function(file, done) {
         file.read(function(err, string) {
-          if (!_.isNull(err)) {
+          if (err) {
             return deferred.reject(err);
           }
 
@@ -124,9 +116,8 @@ function buildComponentAndCheckConformance(filepath) {
     };
 
     build.styles(function(err, builtCSS) {
-      if (!_.isNull(err)) {
-        deferred.reject(err);
-        return;
+      if (err) {
+        return deferred.reject(err);
       }
 
       deferred.resolve(builtCSS);
